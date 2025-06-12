@@ -1,4 +1,4 @@
-# labtracker.py (상단에 import 추가)
+# labtracker.py 수정
 import sys
 import os
 import pandas as pd
