@@ -3,7 +3,7 @@ import sys
 import os
 import pandas as pd
 
-sys.path.append(os.path.dirname(os.path.ahspath(__file__)))
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from utils import save_to_csv, generate_markdown_report
 
