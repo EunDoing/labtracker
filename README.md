@@ -58,19 +58,5 @@ labtracker/
 ## 📦 설치 필요 패키지
 
 ```bash
-pip install -r requirements.txt
-```
-
----
-
-## ✏️ 기타 안내
-
-- 본 저장소에는 **샘플 데이터와 리포트가 포함되어 있습니다.**
-- 직접 데이터를 입력하고 새로운 리포트를 생성하려면 `data/experiments.csv`와 `reports/summary.md` 파일을 **지우고 시작**해주세요.
-- GitHub Actions가 매일 새벽 0시에 리포트를 자동으로 갱신합니다.
-
----
-
-## 🧑‍💻 개발자
-- GitHub: [EunDoing](https://github.com/EunDoing)
+인
 ---
