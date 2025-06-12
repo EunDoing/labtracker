@@ -1,0 +1,35 @@
+# .github/workflows/report.yml
+name: Generate Report
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # 매주 월요일 00:00 UTC (한국 시간 오전 9시)
+  workflow_dispatch:      # 수동 실행도 가능
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install pandas
+
+    - name: Run report generator
+      run: |
+        python labtracker.py 2
+
+    - name: Commit and push report
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add reports/summary.md
+        git commit -m "🤖 자동 리포트 업데이트"
+        git push 
