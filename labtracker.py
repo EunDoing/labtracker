@@ -1,4 +1,10 @@
-# labtracker.py (상단에 import 추가)
+# labtracker.py 수정
+import sys
+import os
+import pandas as pd
+
+sys.path.append(os.path.dirname(os.path.ahspath(__file__)))
+
 from utils import save_to_csv, generate_markdown_report
 
 def main():
