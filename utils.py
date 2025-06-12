@@ -1,15 +1,18 @@
 import csv
 import os
 
-def save_to_csv(name, date, condition, result, path="data/experiments.csv"):
+def save_to_csv(path, data, fieldnames):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    is_new_file = not os.path.exists(path)
+
+    file_exists = os.path.isfile(path)
 
     with open(path, "a", newline="", encoding="utf-8") as csvfile:
-        writer = csv.writer(csvfile)
-        if is_new_file:
-            writer.writerow(["실험명", "날짜", "조건", "결과"])
-        writer.writerow([name, date, condition, result])
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        if not file_exists:
+            writer.writeheader()
+
+        writer.writerow(data)
 
 def generate_markdown_report(input_path="data/experiments.csv", output_path="reports/summary.md"):
     import pandas as pd
