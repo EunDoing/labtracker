@@ -1,33 +1,25 @@
-#수정
-
 import csv
 import os
 
-def save_to_csv(filename, data, fieldnames):
-    file_exists = os.path.isfile(filename)
-    with open(filename, mode='a', newline='', encoding='utf-8') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        if not file_exists:
-            writer.writeheader()
-        writer.writerow(data)
+def save_to_csv(name, date, condition, result, path="data/experiments.csv"):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    is_new_file = not os.path.exists(path)
 
-def generate_markdown_report(csv_file, output_file):
+    with open(path, "a", newline="", encoding="utf-8") as csvfile:
+        writer = csv.writer(csvfile)
+        if is_new_file:
+            writer.writerow(["실험명", "날짜", "조건", "결과"])
+        writer.writerow([name, date, condition, result])
+
+def generate_markdown_report(input_path="data/experiments.csv", output_path="reports/summary.md"):
     import pandas as pd
-
-    if not os.path.exists(csv_file):
-        print("⚠️ CSV 파일이 없습니다. 먼저 실험 데이터를 입력해주세요.")
+    if not os.path.exists(input_path):
+        print("⚠️ CSV 파일이 없어 summary.md 생성 건너뜀")
         return
 
-    df = pd.read_csv(csv_file)
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    df = pd.read_csv(input_path)
 
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write("# 🧪 실험 기록 리포트\n\n")
-        f.write(f"총 {len(df)}개의 실험이 기록되었습니다.\n\n")
-
-        for idx, row in df.iterrows():
-            f.write(f"## 실험 {idx+1}: {row['실험명']}\n")
-            f.write(f"- 📅 날짜: {row['날짜']}\n")
-            f.write(f"- ⚙️ 조건: {row['조건']}\n")
-            f.write(f"- 📝 결과: {row['결과']}\n\n")
-
-    print(f"✅ 리포트 생성 완료: {output_file}")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("# 🧪 실험 기록 요약\n\n")
+        f.write(df.to_markdown(index=False))
