@@ -1,5 +1,5 @@
 # labtracker.py (상단에 import 추가)
-from utils import save_to_csv, generate_markdown_report
+from utils import generate_markdown_report
 
 def main():
     print("🧪 LabTracker 시작!")
