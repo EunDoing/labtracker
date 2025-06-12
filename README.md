@@ -41,67 +41,89 @@ LabTracker는 반복적인 실험 데이터 기록과 정리를 간편하게 자
   → 실험 기록 전체를 표 형태로 요약한 마크다운 파일
 
 ---
+## 💻 실행 방법 (Step-by-Step Guide)
 
-## 💻 실행 방법 (자세히)
-
-### 1. 저장소 클론
+### 1️⃣ 저장소 클론
 
 ```bash
-git clone https://github.com/EunDoing/labtracker.git
+git clone https://github.com/본인아이디/labtracker.git
 cd labtracker
 ```
 
-### 2. 필수 패키지 설치
+---
+
+### 2️⃣ 필수 라이브러리 설치
 
 ```bash
 pip install -r requirements.txt
 ```
 
-> 설치되는 주요 라이브러리:  
-> `pandas`, `tabulate`
+> 설치되는 주요 라이브러리:
+> - `pandas` : CSV 파일 처리
+> - `tabulate` : Markdown 표 생성
 
-### 3. 폴더 확인
+---
 
-- `data/` 폴더와 `reports/` 폴더가 없으면 먼저 생성합니다.
+### 3️⃣ 폴더 구조 확인 / 생성
 
-### 4. 프로그램 실행
+아래 두 개의 폴더는 프로그램 실행 전에 **반드시 존재해야 합니다.**
+
+| 폴더명 | 용도 |
+|--------|------|
+| `data/` | 실험 데이터를 저장하는 폴더 (`experiments.csv`) |
+| `reports/` | 마크다운 리포트가 생성되는 폴더 (`summary.md`) |
+
+#### ✅ 생성 방법
+
+```bash
+mkdir data
+mkdir reports
+```
+
+또는 파일 탐색기에서 직접 폴더를 만들어도 됩니다.
+
+---
+
+### 📁 폴더 배치 예시
+
+```
+labtracker/               ← 최상위 폴더
+├── labtracker.py         ← 메인 실행 파일
+├── utils.py              ← CSV 저장 및 리포트 생성 함수
+├── requirements.txt      ← 필요한 패키지 목록
+├── README.md             ← 설명 문서
+├── data/                 ← 실험 기록 저장
+│   └── experiments.csv   ← [자동 생성됨]
+├── reports/              ← 리포트 저장
+│   └── summary.md        ← [자동 생성됨]
+```
+
+> **주의:** `data/`와 `reports/`는 반드시 `labtracker.py`와 같은 폴더 위치에 있어야 합니다.  
+> 다른 경로에 있을 경우 프로그램이 파일을 찾지 못해 오류가 발생할 수 있습니다.
+
+---
+
+### 4️⃣ 프로그램 실행
 
 ```bash
 python labtracker.py
 ```
 
-실행 후 나오는 메뉴에서 원하는 기능을 선택:
+실행하면 다음과 같은 메뉴가 표시됩니다:
 
 ```
+🧪 LabTracker 시작!
 1. 실험 기록
 2. 리포트 생성
-```
+선택 (1 or 2):
 
 ---
 
-## ✅ 실행 예시
+### 🔄 GitHub Actions 자동화 (선택사항)
 
-```
-선택 (1 or 2): 1
-🧪 실험명: CNT 복합체 실험
-📅 날짜 (YYYY-MM-DD): 2025-06-13
-⚙️ 실험 조건: 3wt% CNT, 150도
-📝 결과 요약: 전도도 증가 확인됨
-💾 CSV 저장 완료! (data/experiments.csv)
-```
+- `main` 브랜치에 push하거나
+- GitHub Actions 탭에서 수동 실행 시
+
+`summary.md` 리포트가 자동으로 갱신되고 저장소에 반영됩니다.
 
 ---
-
-## 📁 생성 파일
-
-| 경로 | 설명 |
-|------|------|
-| `data/experiments.csv` | 실험 기록 CSV 파일 |
-| `reports/summary.md` | 전체 실험 요약 마크다운 리포트 |
-
----
-
-## 🔄 GitHub Actions 자동화
-
-- `main` 브랜치에 푸시하거나 "Generate Report" 워크플로우를 실행하면,  
-  자동으로 최신 실험 데이터를 기반으로 `summary.md`가 업데이트됩니다.
